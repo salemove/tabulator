@@ -12,7 +12,9 @@ module Tabulator
 
     def parse
       data_rows.map do |row|
-        row.compact.map(&method(:string_to_snake))
+        description = row[0]
+        tests = row[1..-1].map(&method(:string_to_snake))
+        tests.insert(0, description)
       end
     end
 
@@ -24,9 +26,7 @@ module Tabulator
     end
 
     def string_to_snake(string)
-      if string.nil?
-        :nothing
-      else
+      if !string.nil?
         string.squish.downcase.tr(" ","_").to_sym
       end
     end
