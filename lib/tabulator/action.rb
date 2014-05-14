@@ -1,11 +1,5 @@
 module Tabulator
   class Action
-    ACTION_MAPPINGS = {
-      :offer_video => :offer_video_engagement
-    }
-    RESPONSE_MAPPINGS = {
-      :video => :accept_incoming_video_call
-    }
 
     def self.next_from_row(row_enumerator)
       new(initiator: row_enumerator.next,
@@ -21,13 +15,13 @@ module Tabulator
     end
 
     def call(session)
-      puts "Tabulator::Action#call running action #{@action} for #{@initiator} and #{@response} for other"
+      p "#{@initiator} #{@action} and respond with #{@response}"
       if @initiator == :operator
-        session.run_for_operator(ACTION_MAPPINGS[@action])
-        session.run_for_visitor(RESPONSE_MAPPINGS[@response])
+        session.run_for_operator(@action)
+        session.run_for_visitor(@response)
       else
-        session.run_for_visitor(ACTION_MAPPINGS[@action])
-        session.run_for_operator(RESPONSE_MAPPINGS[@response])
+        session.run_for_visitor(@action)
+        session.run_for_operator(@response)
       end
     end
   end

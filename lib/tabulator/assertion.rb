@@ -1,6 +1,5 @@
 module Tabulator
-  class MediaAssertion
-    MediaNotFlowing = Class.new(StandardError)
+  class Assertion
 
     def self.next_from_row(row_enumerator)
       new(operator_local: row_enumerator.next,
@@ -18,6 +17,7 @@ module Tabulator
     end
 
     def call(session)
+      p "Assert: operator local - #{@operator_local}, operator remote - #{@operator_remote}, visitor local - #{@visitor_local}, visitor remote - #{@visitor_remote} "
       check_operator_local(session)
       check_operator_remote(session)
       check_visitor_local(session)
@@ -27,19 +27,19 @@ module Tabulator
     private
 
     def check_operator_local(session)
-      session.operator_session.local_media_flowing?
+      session.run_for_operator :check_local, @operator_local
     end
 
     def check_operator_remote(session)
-      session.operator_session.remote_media_flowing?
+      session.run_for_operator :check_remote, @operator_remote
     end
 
     def check_visitor_local(session)
-      session.visitor_session.local_media_flowing?
+      session.run_for_visitor :check_local, @visitor_local
     end
 
     def check_visitor_remote(session)
-      session.visitor_session.remote_media_flowing?
+      session.run_for_visitor :check_remote, @visitor_remote
     end
   end
 end

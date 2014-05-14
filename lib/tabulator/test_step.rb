@@ -1,5 +1,5 @@
 require_relative 'action'
-require_relative 'media_assertion'
+require_relative 'assertion'
 
 module Tabulator
   class TestStep
@@ -9,7 +9,7 @@ module Tabulator
       steps = []
       while true
         action = Action.next_from_row row_iterator
-        assertion = MediaAssertion.next_from_row row_iterator
+        assertion = Assertion.next_from_row row_iterator
         steps << new(action, assertion)
       end
     rescue StopIteration
