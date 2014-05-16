@@ -15,7 +15,7 @@ module Tabulator
     end
 
     def call(session)
-      p "#{@initiator} #{@action} and respond with #{@response}"
+      puts "#{@initiator} #{@action} and respond with #{@response}"
       if @initiator == :operator
         session.run_for_operator(@action)
         session.run_for_visitor(@response)

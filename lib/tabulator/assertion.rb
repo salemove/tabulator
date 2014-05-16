@@ -17,7 +17,7 @@ module Tabulator
     end
 
     def call(session)
-      p "Assert: operator local - #{@operator_local}, operator remote - #{@operator_remote}, visitor local - #{@visitor_local}, visitor remote - #{@visitor_remote} "
+      puts "Assert: operator local - #{@operator_local}, operator remote - #{@operator_remote}, visitor local - #{@visitor_local}, visitor remote - #{@visitor_remote} "
       check_operator_local(session)
       check_operator_remote(session)
       check_visitor_local(session)
